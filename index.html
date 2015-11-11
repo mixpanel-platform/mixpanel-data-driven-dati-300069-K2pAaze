@@ -8,364 +8,380 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.8/d3.js"></script>
     <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.9.0/dist/progressbar.js"></script>
     <style type="text/css">
-      .mixpanel-platform-body {
-      width: 500px;
-      padding-top: 20px;
-      margin: 0 auto;
-      background-color: #f0f2f6;
-      }
-      .report-body {
-      -webkit-filter: blur(3px);
-      }
-      .labels {
-      width: 100%;
-      float: left;
-      margin: 0 auto;
-      padding: 0;
-      font-family: 'proxima-nova, sans-serif';
-      font-size: 25px;
-      text-align: center;
-      color: #69717e;
-      }
-      .selectors {
-      height: 280px;
-      width: 100%;
-      overflow: hidden;
-      }
-      .submit {
-      overflow: hidden;
-      width: 100%;
-      margin: 0 -41px;
-      }
-      .dropdown {
-      width: 200px;
-      float: left;
-      margin: 5px 20px;
-      }
-      .proplist {
-      width: 100%;
-      margin-bottom: 10px;
-      font-family: 'proxima-nova, sans-serif';
-      font-size: 17px;
-      color: #69717e;
-      text-shadow: 0 1px 1px rgba(255,255,255,0.75);
-      background-color: rgba(255,255,255,0.75);
-      border: 1px solid #bdbdce;
-      border-bottom-color: #b1b0b9;
-      border-radius: 3px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.73),0 2px 2px -1px rgba(0,0,0,0.2);
-      cursor: pointer;
-      font-weight: bold;
-      text-decoration: none;
-      }
-      .listbutton {
-      width: 100%;
-      }
-      .button {
-      font-family: proxima-nova,sans-serif;
-      display: inline-block;
-      *display: inline;
-      *zoom: 1;
-      padding: 9px 15px;
-      margin-bottom: 0;
-      margin: 0;
-      font-size: 13px;
-      color: #69717e;
-      text-align: center;
-      text-shadow: 0 1px 1px rgba(255,255,255,0.75);
-      vertical-align: middle;
-      background-color: #f6f5f5;
-      background-image: -webkit-linear-gradient(#fdfdfd,#ebe9e9);
-      background-image: linear-gradient(#fdfdfd,#ebe9e9);
-      filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-      border: 1px solid #bdbdce;
-      border-bottom-color: #b1b0b9;
-      border-radius: 3px;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.73),0 2px 2px -1px rgba(0,0,0,0.2);
-      cursor: pointer;
-      font-weight: 700;
-      text-decoration: none;
-      *margin-left: .3em;
-      }
-      .button:active {
-      background-color: #eeedf3;
-      background-image: -webkit-linear-gradient(#f1f0f5,#eae9ef);
-      background-image: linear-gradient(#f1f0f5,#eae9ef);
-      box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
-      color: #69717e;
-      outline: 0;
-      }
-      .button:focus {
-      outline: thin dotted #333;
-      outline: 5px auto -webkit-focus-ring-color;
-      outline-offset: -2px;
-      outline: 0;
-      }
-      .button:hover,.button.hover {
-      background-color: #fafafb;
-      background-image: -webkit-linear-gradient(#fefefe,#f4f3f6);
-      background-image: linear-gradient(#fefefe,#f4f3f6);
-      color: #3e3f42;
-      }
-      .button_primary {
-      background-color: #61adf0;
-      background-image: -webkit-linear-gradient(#6ab5f2,#53a0ee);
-      background-image: linear-gradient(#6ab5f2,#53a0ee);
-      box-shadow: inset 0 1px 1px #77bdf4,0 2px 2px -1px rgba(0,0,0,0.2);
-      text-transform: uppercase;
-      border: 1px solid #4d93d7;
-      color: #fff;
-      text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
-      }
-      .button_primary:hover,.button_primary:visited:hover,.button_primary.hover,.button_primary:visited.hover {
-      background: #5fabf1;
-      color: #fff;
-      }
-      .button_primary:active,.button_primary:visited:active,.button_primary.active,.button_primary:visited.active {
-      background: #5fabf1;
-      color: #fff;
-      box-shadow: inset 0 1px 1px #48a6f0;
-      }
-      .button_primary {
-      width: 200px;
-      float: right;
-      }
-      .loading {
-      position: absolute;
-      width: 500px;
-      height: 100%;
-      z-index: 99;
-      }
-      #progress {
-      width: 75%;
-      margin: 0 auto 0;
-      }
+    .mixpanel-platform-body {
+        width: 500px;
+        padding-top: 20px;
+        margin: 0 auto;
+        background-color: #f0f2f6;
+    }
+
+    .report-body {
+        -webkit-filter: blur(3px);
+    }
+
+    .labels {
+        width: 100%;
+        float: left;
+        margin: 0 auto;
+        padding: 0;
+        font-family: 'proxima-nova, sans-serif';
+        font-size: 25px;
+        text-align: center;
+        color: #69717e;
+    }
+
+    .selectors {
+        height: 280px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .submit {
+        overflow: hidden;
+        width: 100%;
+        margin: 0 -41px;
+    }
+
+    .dropdown {
+        width: 200px;
+        float: left;
+        margin: 5px 20px;
+    }
+    .proplist {
+        width: 100%;
+        margin-bottom: 10px;
+        font-family: 'proxima-nova, sans-serif';
+        font-size: 17px;
+        color: #69717e;
+        text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+        background-color: rgba(255,255,255,0.75);
+        border: 1px solid #bdbdce;
+        border-bottom-color: #b1b0b9;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.73),0 2px 2px -1px rgba(0,0,0,0.2);
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .listbutton {
+        width: 100%;
+    }
+
+    .button {
+        font-family: proxima-nova,sans-serif;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        padding: 9px 15px;
+        margin-bottom: 0;
+        margin: 0;
+        font-size: 13px;
+        color: #69717e;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+        vertical-align: middle;
+        background-color: #f6f5f5;
+        background-image: -webkit-linear-gradient(#fdfdfd,#ebe9e9);
+        background-image: linear-gradient(#fdfdfd,#ebe9e9);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        border: 1px solid #bdbdce;
+        border-bottom-color: #b1b0b9;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.73),0 2px 2px -1px rgba(0,0,0,0.2);
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+        *margin-left: .3em;
+    }
+4
+    .button:active {
+        background-color: #eeedf3;
+        background-image: -webkit-linear-gradient(#f1f0f5,#eae9ef);
+        background-image: linear-gradient(#f1f0f5,#eae9ef);
+        box-shadow: inset 0 1px 4px rgba(0,0,0,0.2);
+        color: #69717e;
+        outline: 0;
+    }
+
+    .button:focus {
+        outline: thin dotted #333;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: -2px;
+        outline: 0;
+    }
+
+    .button:hover,.button.hover {
+        background-color: #fafafb;
+        background-image: -webkit-linear-gradient(#fefefe,#f4f3f6);
+        background-image: linear-gradient(#fefefe,#f4f3f6);
+        color: #3e3f42;
+    }
+
+    .button_primary {
+        background-color: #61adf0;
+        background-image: -webkit-linear-gradient(#6ab5f2,#53a0ee);
+        background-image: linear-gradient(#6ab5f2,#53a0ee);
+        box-shadow: inset 0 1px 1px #77bdf4,0 2px 2px -1px rgba(0,0,0,0.2);
+        text-transform: uppercase;
+        border: 1px solid #4d93d7;
+        color: #fff;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
+    }
+
+    .button_primary:hover,.button_primary:visited:hover,.button_primary.hover,.button_primary:visited.hover {
+        background: #5fabf1;
+        color: #fff;
+    }
+
+    .button_primary:active,.button_primary:visited:active,.button_primary.active,.button_primary:visited.active {
+        background: #5fabf1;
+        color: #fff;
+        box-shadow: inset 0 1px 1px #48a6f0;
+    }
+
+    .button_primary {
+        width: 200px;
+        float: right;
+    }
+
+    .loading {
+        position: absolute;
+        width: 500px;
+        height: 100%;
+        z-index: 99;
+    }
+
+    #progress {
+        width: 75%;
+        margin: 0 auto 0;
+    }
+
     </style>
-  </head>
-  <body class="mixpanel-platform-body">
+    </head>
+    <body class="mixpanel-platform-body">
     <div class="loading">
-      <div id="progress">
-      </div>
+        <div id="progress">
+        </div>
     </div>
     <div class="report-body">
-      <div class="labels">
-        <div class="dropdown">Avaliable</div>
-        <div class="dropdown">Included</div>
-      </div>
-      <div class="selectors">
-        <div id='propsSelect' class="dropdown"></div>
-        <div id='propsChosen' class="dropdown"></div>
-      </div>
-      <div class="submit">
-        <button class="button_primary button">download users</button>
-      </div>
+        <div class="labels">
+            <div class="dropdown">Available</div>
+            <div class="dropdown">Included</div>
+        </div>
+        <div class="selectors">
+            <div id='propsSelect' class="dropdown"></div>
+            <div id='propsChosen' class="dropdown"></div>
+        </div>
+        <div class="submit">
+            <button class="button_primary button">download users</button>
+        </div>
     </div>
     <script>
-      var PeoplePager = function(callable, selector, callback) {
-          if (this instanceof PeoplePager) {
-              if (typeof callable === 'function') {
-                  this.callable = callable;
-              } else {
-                  throw "callable is not a function";
-              }
-              if (typeof selector === 'string' && selector) {
-                  this.selector = selector;
-              }
-              this.callback = callback;
-              this.counter = 0;
-              this.page = 0;
-              this._init();
-          } else {
-              return new PeoplePager(callable, selector, callback);
-          }
+        var PeoplePager = function(callable, selector, callback) {
+            if (this instanceof PeoplePager) {
+                if (typeof callable === 'function') {
+                    this.callable = callable;
+                } else {
+                    throw "callable is not a function";
+                }
+                if (typeof selector === 'string' && selector) {
+                    this.selector = selector;
+                }
+                this.callback = callback;
+                this.counter = 0;
+                this.page = 0;
+                this._init();
+            } else {
+                return new PeoplePager(callable, selector, callback);
+            }
 
-      }
+        }
 
-      PeoplePager.prototype = {
-          constructor: PeoplePager,
-          _init: function() {
-              this._query();
-          },
-          _query: function() {
-              defered = $.Deferred();
-              var p = {}
-              if (this.page > 0) {
-                  p.page = this.page;
-              }
-              if (this.sessionId) {
-                  p.session_id = this.sessionId;
-              }
-              if (this.selector) {
-                  p.selector = this.selector;
-              }
-              var that = this;
-              MP.api.people(p).pipe(function(d){that._process(d.json, defered)});
-              defered.done(function(){that._page()})
-          },
-          _process: function(data, defered) {
-              if (this.page === 0) {
-                  this.sessionId = data.session_id;
-                  this.total = data.total
-              }
-              this.lastDataLength = data.results.length;
-              data.results.length
-              for (var i=0; i < data.results.length; i++) {
-                  data.results[i]["$properties"]["$distinct_id"] = data.results[i]["$distinct_id"]
-                  this.callable(data.results[i]["$properties"]);
-                  this.counter += 1
-              }
-              this.lastDataLength = data.results.length
-              defered.resolve();
-          },
-          _page: function(){
-              if (this.lastDataLength === 1000) {
-                  this.page += 1;
-                  this._query();
-              } else {
-                  if (this.callback !== undefined) {
-                      if (typeof this.callback === 'function') {
-                          this.callback();
-                      } else {
-                          throw "callback is not a function";
-                      }
-                  }
-              }
-          }
-      }
+        PeoplePager.prototype = {
+            constructor: PeoplePager,
+            _init: function() {
+                this._query();
+            },
+            _query: function() {
+                defered = $.Deferred();
+                var p = {}
+                if (this.page > 0) {
+                    p.page = this.page;
+                }
+                if (this.sessionId) {
+                    p.session_id = this.sessionId;
+                }
+                if (this.selector) {
+                    p.selector = this.selector;
+                }
+                var that = this;
+                MP.api.people(p).pipe(function(d){that._process(d.json, defered)});
+                defered.done(function(){that._page()})
 
-      var headers = [];
-      var csv;
-      var csvMax = Math.pow(10,6)*2;
-      var $download = $('button');
-      var $listSelect = $('<select class="proplist" size="10"/>');
-      var $listChosen = $('<select class="proplist" size="10"/>');
-      var $include = $('<button id="include" class="listbutton button"/>').text('add');
-      var $remove = $('<button id="remove" class="listbutton button"/>').text('remove');
-      var $reportbody = $('.report-body');
-      var $loading = $('div.loading');
-      var progressCircle;
-      var lastPercent = 0.00;
+            },
+            _process: function(data, defered) {
+                if (this.page === 0) {
+                    this.sessionId = data.session_id;
+                    this.total = data.total
+                }
+                this.lastDataLength = data.results.length;
+                data.results.length
+                for (var i=0; i < data.results.length; i++) {
+                    data.results[i]["$properties"]["$distinct_id"] = data.results[i]["$distinct_id"]
+                    this.callable(data.results[i]["$properties"]);
+                    this.counter += 1
+                }
+                this.lastDataLength = data.results.length
+                defered.resolve();
+            },
+            _page: function(){
+                if (this.lastDataLength === 1000) {
+                    this.page += 1;
+                    this._query();
+                } else {
+                    if (this.callback !== undefined) {
+                        if (typeof this.callback === 'function') {
+                            this.callback();
+                        } else {
+                            throw "callback is not a function";
+                        }
+                    }
+                }
+            }
 
-      function processUser(user){
-          currPercent = (this.counter/this.total).toFixed(2)
-          if (currPercent > lastPercent) {
-              lastPercent = currPercent
-              progressCircle.animate(currPercent)
-          }
-          var vals = []
-          headers.forEach(function(prop){
-              if (user.hasOwnProperty(prop)) {
-                var value = user[prop]
-                  if (typeof user[prop] == 'object') {
-                      vals.push('object')
-                  } else {
-                      if (value.indexOf && value.indexOf(',') > 0) {
-                        value = value.replace(/[,]/g , '');
-                      }
-                      vals.push(value)
-                  }
-              } else {
-                  vals.push('')
-              }
-          })
-          csv += encodeURI('\n'+vals.join())
-          if (csv.length > csvMax) {
-              downloadCSV()
-          }
-      }
+        }
 
-      function downloadCSV() {
-          if (csv == undefined) {
-              console.log("no people to export")
-              return
-          }
-          var filename = 'people.csv';
-          var link = document.createElement('a');
-          link.setAttribute('href', csv);
-          link.setAttribute('download', filename);
-          link.click();
-          $(link).remove();
-          csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
-      }
+        var headers = [];
+        var csv;
+        var csvMax = Math.pow(10,6)*2;
+        var $download = $('button');
+        var $listSelect = $('<select class="proplist" size="10"/>');
+        var $listChosen = $('<select class="proplist" size="10"/>');
+        var $include = $('<button id="include" class="listbutton button"/>').text('add');
+        var $remove = $('<button id="remove" class="listbutton button"/>').text('remove');
+        var $reportbody = $('.report-body');
+        var $loading = $('div.loading');
+        var lastPercent = 0.00;
 
-      function finishProcessing() {
-          downloadCSV();
-          loading(false);
-          lastPercent = 0.0;
-          progressCircle.set(0);
-      }
+        var progressCircle;
 
-      function loading(status){
-          if (status === true) {
-              $reportbody.css('-webkit-filter', 'blur(3px)');
-              $loading.show();
-          } else if (status === false) {
-              $reportbody.css('-webkit-filter', 'blur(0px)');
-              $loading.hide();
-          }
-      }
+        function processUser(user){
+            currPercent = (this.counter/this.total).toFixed(2)
+            if (currPercent > lastPercent) {
+                lastPercent = currPercent
+                progressCircle.animate(currPercent)
+            }
+            var vals = []
+            headers.forEach(function(prop){
+                if (user.hasOwnProperty(prop)) {
+                    if (typeof user[prop] == 'object') {
+                        vals.push('object')
+                    } else {
+                        vals.push(user[prop])
+                    }
+                } else {
+                    vals.push('')
+                }
+            })
+            csv += encodeURI('\n'+vals.join())
+            if (csv.length > csvMax) {
+                downloadCSV()
+            }
+        }
 
-      function run(){
-          $include.on('click', function() {
-              var selected= $listSelect.val();
-              $listSelect.find('option:selected').remove();
-              $listChosen.append($('<option />').attr('value',selected).text(selected));
-          });
-          $remove.on('click', function() {
-              var selected= $listChosen.val();
-              $listChosen.find('option:selected').remove();
-              $listSelect.append($('<option />').attr('value',selected).text(selected));
-          });
-          $download.on('click', function() {
-              loading(true);
-              var whereProps = [];
-              headers = [];
-              $listChosen.find('option').each(function(i, el){
-                  var prop = el.getAttribute('value');
-                  if (prop !== "$distinct_id") {
-                      whereProps.push('(defined (properties["'+prop+'"]))');
-                  }
-                  headers.push(prop);
-              });
-              if (whereProps.length > 0) {
-                  var selector = whereProps.join(" or ");
-              }
-              csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
-              PeoplePager(processUser, selector, finishProcessing);
-          });
+        function downloadCSV() {
+            if (csv == undefined) {
+                console.log("no people to export")
+                return
+            }
+            var filename = 'people.csv';
+            var link = document.createElement('a');
+            link.setAttribute('href', csv);
+            link.setAttribute('download', filename);
+            link.click();
+            $(link).remove();
+            csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
+        }
 
-          progressCircle = new ProgressBar.Circle("#progress", {
-              color: '#FCB03C',
-              strokeWidth: 5,
-              trailWidth: 3,
-              duration: 250,
-              text: {
-                  value: '0',
-                  style: {
-                      "font-size": "75px",
-                      "font-family": 'proxima-nova, sans-serif'
-                  }
-              },
-              step: function(state, bar) {
-                  bar.setText((bar.value() * 100).toFixed(0));
-              }
-          });
-      }
+        function finishProcessing() {
+            downloadCSV();
+            loading(false);
+            lastPercent = 0.0;
+            progressCircle.set(0);
+        }
 
-      $(function(){
-          MP.api.query('api/2.0/engage/properties',{limit:'2000'}).done(function(d) {
-              $listChosen.append($('<option value="$distinct_id" />').text('$distinct_id'));
-              for (prop in d.results) {
-                  $listSelect.append($('<option />').attr('value',prop).text(prop));
-              }
-              $('#propsSelect').append($listSelect);
-              $listSelect.after($include);
-              $('#propsChosen').append($listChosen);
-              $listChosen.after($remove);
-              loading(false);
-              run();
-          });
-      })
+        function loading(status){
+            if (status === true) {
+                $reportbody.css('-webkit-filter', 'blur(3px)');
+                $loading.show();
+            } else if (status === false) {
+                $reportbody.css('-webkit-filter', 'blur(0px)');
+                $loading.hide();
+            }
+        }
+
+        function run(){
+            $include.on('click', function() {
+                var selected= $listSelect.val();
+                $listSelect.find('option:selected').remove();
+                $listChosen.append($('<option />').attr('value',selected).text(selected));
+            });
+            $remove.on('click', function() {
+                var selected= $listChosen.val();
+                $listChosen.find('option:selected').remove();
+                $listSelect.append($('<option />').attr('value',selected).text(selected));
+            });
+            $download.on('click', function() {
+                loading(true);
+                var whereProps = [];
+                headers = [];
+                $listChosen.find('option').each(function(i, el){
+                    var prop = el.getAttribute('value');
+                    if (prop !== "$distinct_id") {
+                        whereProps.push('(defined (properties["'+prop+'"]))');
+                    }
+                    headers.push(prop);
+                });
+                if (whereProps.length > 0) {
+                    var selector = whereProps.join(" or ");
+                }
+                csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
+                PeoplePager(processUser, selector, finishProcessing);
+            });
+
+            progressCircle = new ProgressBar.Circle("#progress", {
+                color: '#FCB03C',
+                strokeWidth: 5,
+                trailWidth: 3,
+                duration: 250,
+                text: {
+                    value: '0',
+                    style: {
+                        "font-size": "75px",
+                        "font-family": 'proxima-nova, sans-serif'
+                    }
+                },
+                step: function(state, bar) {
+                    bar.setText((bar.value() * 100).toFixed(0));
+                }
+            });
+        }
+
+        $(function(){
+            MP.api.query('api/2.0/engage/properties',{limit:'2000'}).done(function(d) {
+                $listChosen.append($('<option value="$distinct_id" />').text('$distinct_id'));
+                for (prop in d.results) {
+                    $listSelect.append($('<option />').attr('value',prop).text(prop));
+                }
+                $('#propsSelect').append($listSelect);
+                $listSelect.after($include);
+                $('#propsChosen').append($listChosen);
+                $listChosen.after($remove);
+                loading(false);
+                run();
+            });
+        })
     </script>
   </body>
 </html>
