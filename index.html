@@ -253,7 +253,7 @@
         }
 
         var headers = [];
-        var csv = encodeURI('data:text/csv;charset=utf-8,');
+        var csv;
         var csvMax = Math.pow(10,6)*2;
         var $download = $('button');
         var $listSelect = $('<select class="proplist" size="10"/>');
@@ -346,7 +346,7 @@
                 if (whereProps.length > 0) {
                     var selector = whereProps.join(" or ");
                 }
-                csv += encodeURI(headers.join());
+                csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
                 PeoplePager(processUser, selector, finishProcessing);
             });
 
