@@ -2,11 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
-    <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.8/d3.js"></script>
     <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.9.0/dist/progressbar.js"></script>
+    <script src="https://cdn.rawgit.com/jordanmnunez/mp-platform-people-pager/master/peoplepager.js"></script>
     <style type="text/css">
       .mixpanel-platform-body {
       width: 500px;
@@ -161,78 +158,6 @@
       </div>
     </div>
     <script>
-      var PeoplePager = function(callable, selector, callback) {
-          if (this instanceof PeoplePager) {
-              if (typeof callable === 'function') {
-                  this.callable = callable;
-              } else {
-                  throw "callable is not a function";
-              }
-              if (typeof selector === 'string' && selector) {
-                  this.selector = selector;
-              }
-              this.callback = callback;
-              this.counter = 0;
-              this.page = 0;
-              this._init();
-          } else {
-              return new PeoplePager(callable, selector, callback);
-          }
-
-      }
-
-      PeoplePager.prototype = {
-          constructor: PeoplePager,
-          _init: function() {
-              this._query();
-          },
-          _query: function() {
-              defered = $.Deferred();
-              var p = {}
-              if (this.page > 0) {
-                  p.page = this.page;
-              }
-              if (this.sessionId) {
-                  p.session_id = this.sessionId;
-              }
-              if (this.selector) {
-                  p.selector = this.selector;
-              }
-              var that = this;
-              MP.api.people(p).pipe(function(d){that._process(d.json, defered)});
-              defered.done(function(){that._page()})
-          },
-          _process: function(data, defered) {
-              if (this.page === 0) {
-                  this.sessionId = data.session_id;
-                  this.total = data.total
-              }
-              this.lastDataLength = data.results.length;
-              data.results.length
-              for (var i=0; i < data.results.length; i++) {
-                  data.results[i]["$properties"]["$distinct_id"] = data.results[i]["$distinct_id"]
-                  this.callable(data.results[i]["$properties"]);
-                  this.counter += 1
-              }
-              this.lastDataLength = data.results.length
-              defered.resolve();
-          },
-          _page: function(){
-              if (this.lastDataLength === 1000) {
-                  this.page += 1;
-                  this._query();
-              } else {
-                  if (this.callback !== undefined) {
-                      if (typeof this.callback === 'function') {
-                          this.callback();
-                      } else {
-                          throw "callback is not a function";
-                      }
-                  }
-              }
-          }
-      }
-
       var headers = [];
       var csv;
       var csvMax = Math.pow(10,6)*2;
@@ -257,7 +182,11 @@
               if (user.hasOwnProperty(prop)) {
                 var value = user[prop]
                   if (typeof user[prop] == 'object') {
-                      vals.push('object')
+                    if (prop == '$transactions'){
+                      vals.push(tallyRevenue(user[prop]));
+                    } else {
+                      vals.push('object');
+                    }
                   } else {
                       if (value.indexOf && value.indexOf(',') > 0) {
                         value = value.replace(/[,]/g , '');
@@ -286,6 +215,17 @@
           link.click();
           $(link).remove();
           csv = encodeURI('data:text/csv;charset=utf-8,' + encodeURI(headers.join()));
+      }
+
+      function tallyRevenue(transactions) {
+        var total = 0;
+        if (transactions instanceof Array) {
+            transactions.forEach(function(item){
+                console.log(item)
+                total += item['$amount']
+            })
+        }
+        return total
       }
 
       function finishProcessing() {
